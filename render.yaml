@@ -3,11 +3,27 @@ services:
     name: image-assembly-api
     runtime: docker
     dockerfilePath: ./Dockerfile
+    plan: standard # Minimum 2GB RAM for processing large images
+    autoDeploy: true
+    healthCheckPath: /api/health
+    maxShutdownDelaySeconds: 30
+    dockerCommand: node server.js
     envVars:
       - key: NODE_ENV
         value: production
       - key: PORT
         value: 3000
-    healthCheckPath: /health
-    autoDeploy: true
-    plan: free # Start with free, upgrade as needed
+      - key: MAX_FILE_SIZE
+        value: 52428800
+      - key: MAX_FILES
+        value: 50
+      - key: STORAGE_TYPE
+        value: local
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      - key: AWS_REGION
+        value: us-east-1
+      - key: S3_BUCKET_NAME
+        sync: false

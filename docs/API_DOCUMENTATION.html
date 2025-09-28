@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Assembly API Documentation v2.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+        }
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        h3 {
+            color: #667eea;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .endpoint {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .method {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-right: 10px;
+        }
+        .method.post { background: #28a745; color: white; }
+        .method.get { background: #007bff; color: white; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .params-table th, .params-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .params-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #667eea;
+        }
+        .quality-preset {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .feature-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            color: #666;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            margin-bottom: -2px;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Image Assembly API</h1>
+            <p>Ultra-High Quality Image to GIF/PDF Conversion Service</p>
+            <p style="margin-top: 10px; font-size: 1em; color: #999;">Version 2.0.0 | Production Ready</p>
+        </div>
+
+        <!-- Overview Section -->
+        <div class="section">
+            <h2>📋 Overview</h2>
+            <p>The Image Assembly API is a high-performance service designed to convert multiple images into animated GIFs and PDF documents with uncompromising quality. Built specifically for comic book creators, digital artists, and content publishers who demand the highest quality output.</p>
+            
+            <h3>✨ Key Features</h3>
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <span><strong>Ultra-High Quality GIF Generation</strong> - Two-pass FFmpeg optimization with custom palettes</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <span><strong>Professional PDF Creation</strong> - Comic book layout support with optimized compression</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <span><strong>Batch Processing</strong> - Handle up to 50 images per request (50MB each)</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <span><strong>Cloud Storage</strong> - AWS S3 integration with automatic fallback to local storage</span>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <span><strong>Multiple Quality Presets</strong> - From web-optimized to ultra-quality archival</span>
+            </div>
+        </div>
+
+        <!-- Quick Start Section -->
+        <div class="section">
+            <h2>🚀 Quick Start</h2>
+            
+            <h3>Base URL</h3>
+            <code>https://your-api-domain.com/api</code>
+            
+            <h3>Simple Example - Convert Images to GIF</h3>
+            <pre>curl -X POST https://your-api-domain.com/api/convert/gif \
+  -F "images=@page1.jpg" \
+  -F "images=@page2.jpg" \
+  -F "images=@page3.jpg" \
+  -F "quality=ultra" \
+  -F "delay=3000"</pre>
+
+            <h3>Response</h3>
+            <pre>{
+  "success": true,
+  "format": "gif",
+  "url": "https://storage.example.com/output/abc123.gif",
+  "size": 4567890,
+  "frames": 3,
+  "settings": {
+    "delay": 3000,
+    "loop": 0,
+    "width": 800,
+    "height": 1200,
+    "quality": "ultra"
+  }
+}</pre>
+        </div>
+
+        <!-- Endpoints Section -->
+        <div class="section">
+            <h2>📡 API Endpoints</h2>
+
+            <div class="endpoint">
+                <h3><span class="method post">POST</span>/api/convert/gif</h3>
+                <p>Convert multiple images to an animated GIF with ultra-high quality.</p>
+                
+                <h4>Request Parameters (multipart/form-data)</h4>
+                <table class="params-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>images[]</code></td>
+                        <td>File[]</td>
+                        <td>Required</td>
+                        <td>Array of image files (JPEG, PNG, GIF, WebP, BMP, TIFF)</td>
+                    </tr>
+                    <tr>
+                        <td><code>quality</code></td>
+                        <td>String</td>
+                        <td>"ultra"</td>
+                        <td>Quality preset: "low", "medium", "high", "ultra"</td>
+                    </tr>
+                    <tr>
+                        <td><code>delay</code></td>
+                        <td>Integer</td>
+                        <td>2000</td>
+                        <td>Delay between frames in milliseconds</td>
+                    </tr>
+                    <tr>
+                        <td><code>width</code></td>
+                        <td>Integer</td>
+                        <td>800</td>
+                        <td>Output width in pixels</td>
+                    </tr>
+                    <tr>
+                        <td><code>height</code></td>
+                        <td>Integer</td>
+                        <td>1200</td>
+                        <td>Output height in pixels</td>
+                    </tr>
+                    <tr>
+                        <td><code>loop</code></td>
+                        <td>Integer</td>
+                        <td>0</td>
+                        <td>Number of loops (0 = infinite)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method post">POST</span>/api/convert/pdf</h3>
+                <p>Convert multiple images to a high-quality PDF document.</p>
+                
+                <h4>Request Parameters (multipart/form-data)</h4>
+                <table class="params-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><code>images[]</code></td>
+                        <td>File[]</td>
+                        <td>Required</td>
+                        <td>Array of image files</td>
+                    </tr>
+                    <tr>
+                        <td><code>format</code></td>
+                        <td>String</td>
+                        <td>"A4"</td>
+                        <td>Page format: "A4", "Letter", "Comic"</td>
+                    </tr>
+                    <tr>
+                        <td><code>quality</code></td>
+                        <td>Integer</td>
+                        <td>95</td>
+                        <td>JPEG compression quality (1-100)</td>
+                    </tr>
+                    <tr>
+                        <td><code>optimize</code></td>
+                        <td>Boolean</td>
+                        <td>true</td>
+                        <td>Enable PDF optimization</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method post">POST</span>/api/convert/both</h3>
+                <p>Convert images to both GIF and PDF simultaneously for maximum efficiency.</p>
+                <p><em>Combines parameters from both /gif and /pdf endpoints</em></p>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method post">POST</span>/api/convert/from-urls</h3>
+                <p>Convert images from URLs instead of uploading files.</p>
+                
+                <h4>Request Body (JSON)</h4>
+                <pre>{
+  "imageUrls": [
+    "https://example.com/image1.jpg",
+    "https://example.com/image2.jpg"
+  ],
+  "outputFormat": "both",
+  "quality": "ultra",
+  "delay": 3000
+}</pre>
+            </div>
+
+            <div class="endpoint">
+                <h3><span class="method get">GET</span>/api/health</h3>
+                <p>Check API health and system status.</p>
+                
+                <h4>Response</h4>
+                <pre>{
+  "status": "healthy",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "uptime": 86400,
+  "service": "Image Assembly API",
+  "version": "2.0.0",
+  "memory": {
+    "used": 256,
+    "total": 8192
+  },
+  "cpu": 0.5
+}</pre>
+            </div>
+        </div>
+
+        <!-- Quality Settings Section -->
+        <div class="section">
+            <h2>🎨 Quality Presets</h2>
+            <p>Choose the perfect balance between file size and quality for your use case:</p>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('low')">Low</button>
+                <button class="tab" onclick="showTab('medium')">Medium</button>
+                <button class="tab" onclick="showTab('high')">High</button>
+                <button class="tab" onclick="showTab('ultra')">Ultra</button>
+            </div>
+            
+            <div id="low" class="tab-content active">
+                <h3>Low Quality</h3>
+                <ul>
+                    <li><strong>Colors:</strong> 64</li>
+                    <li><strong>Dithering:</strong> Floyd-Steinberg</li>
+                    <li><strong>Optimize:</strong> Level 3</li>
+                    <li><strong>Use Case:</strong> Quick previews, thumbnails, web icons</li>
+                    <li><strong>File Size:</strong> ~500KB - 2MB</li>
+                </ul>
+            </div>
+            
+            <div id="medium" class="tab-content">
+                <h3>Medium Quality</h3>
+                <ul>
+                    <li><strong>Colors:</strong> 128</li>
+                    <li><strong>Dithering:</strong> Floyd-Steinberg</li>
+                    <li><strong>Optimize:</strong> Level 2</li>
+                    <li><strong>Use Case:</strong> Social media, email attachments</li>
+                    <li><strong>File Size:</strong> ~2MB - 5MB</li>
+                </ul>
+            </div>
+            
+            <div id="high" class="tab-content">
+                <h3>High Quality</h3>
+                <ul>
+                    <li><strong>Colors:</strong> 256</li>
+                    <li><strong>Dithering:</strong> None</li>
+                    <li><strong>Optimize:</strong> Level 1</li>
+                    <li><strong>Use Case:</strong> Professional presentations, portfolios</li>
+                    <li><strong>File Size:</strong> ~5MB - 10MB</li>
+                </ul>
+            </div>
+            
+            <div id="ultra" class="tab-content">
+                <h3>Ultra Quality (Recommended)</h3>
+                <ul>
+                    <li><strong>Colors:</strong> 256 (with two-pass optimization)</li>
+                    <li><strong>Dithering:</strong> None</li>
+                    <li><strong>Optimize:</strong> Disabled for maximum quality</li>
+                    <li><strong>Use Case:</strong> Comic books, art portfolios, archival</li>
+                    <li><strong>File Size:</strong> ~10MB - 20MB</li>
+                </ul>
+                <div class="success">
+                    <strong>🎯 Best for Comics:</strong> Ultra quality preserves every detail with perfect color reproduction
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples Section -->
+        <div class="section">
+            <h2>💻 Code Examples</h2>
+            
+            <h3>JavaScript (Node.js)</h3>
+            <pre>const FormData = require('form-data');
+const fs = require('fs');
+const axios = require('axios');
+
+async function createComicGif() {
+  const form = new FormData();
+  
+  // Add comic pages
+  for (let i = 1; i <= 10; i++) {
+    form.append('images', fs.createReadStream(`page${i}.jpg`));
+  }
+  
+  // Ultra quality for comics
+  form.append('quality', 'ultra');
+  form.append('delay', '3000'); // 3 seconds per page
+  form.append('width', '800');
+  form.append('height', '1200');
+  
+  try {
+    const response = await axios.post(
+      'https://your-api.com/api/convert/gif',
+      form,
+      { headers: form.getHeaders() }
+    );
+    
+    console.log('GIF created:', response.data.url);
+  } catch (error) {
+    console.error('Error:', error.response.data);
+  }
+}
+
+createComicGif();</pre>
+
+            <h3>Python</h3>
+            <pre>import requests
+
+def create_comic_gif(image_files):
+    url = 'https://your-api.com/api/convert/gif'
+    
+    files = []
+    for image_path in image_files:
+        files.append(('images', open(image_path, 'rb')))
+    
+    data = {
+        'quality': 'ultra',
+        'delay': 3000,
+        'width': 800,
+        'height': 1200
+    }
+    
+    response = requests.post(url, files=files, data=data)
+    
+    if response.status_code == 200:
+        result = response.json()
+        print(f"GIF created: {result['url']}")
+        return result['url']
+    else:
+        print(f"Error: {response.json()}")
+        return None
+
+# Usage
+image_files = [f'page{i}.jpg' for i in range(1, 11)]
+gif_url = create_comic_gif(image_files)</pre>
+
+            <h3>React Frontend</h3>
+            <pre>import React, { useState } from 'react';
+import axios from 'axios';
+
+function ComicConverter() {
+  const [files, setFiles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+  
+  const handleUpload = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    
+    files.forEach(file => {
+      formData.append('images', file);
+    });
+    
+    formData.append('quality', 'ultra');
+    formData.append('delay', '3000');
+    
+    try {
+      const response = await axios.post(
+        '/api/convert/both',
+        formData,
+        { 
+          headers: { 'Content-Type': 'multipart/form-data' },
+          timeout: 600000 // 10 minutes for large files
+        }
+      );
+      
+      setResult(response.data);
+    } catch (error) {
+      console.error('Upload failed:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  return (
+    &lt;div&gt;
+      &lt;input 
+        type="file" 
+        multiple 
+        accept="image/*"
+        onChange={(e) => setFiles(Array.from(e.target.files))}
+      /&gt;
+      &lt;button onClick={handleUpload} disabled={loading}&gt;
+        {loading ? 'Converting...' : 'Convert to GIF & PDF'}
+      &lt;/button&gt;
+      
+      {result && (
+        &lt;div&gt;
+          &lt;a href={result.gif.url}&gt;Download GIF&lt;/a&gt;
+          &lt;a href={result.pdf.url}&gt;Download PDF&lt;/a&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/div&gt;
+  );
+}</pre>
+        </div>
+
+        <!-- Deployment Section -->
+        <div class="section">
+            <h2>🚢 Deployment Guide</h2>
+            
+            <h3>Deploy to Render.com</h3>
+            
+            <h4>1. Prepare Your Repository</h4>
+            <pre>git init
+git add .
+git commit -m "Initial commit - Ultra quality Image Assembly API"
+git remote add origin https://github.com/yourusername/image-assembly-api.git
+git push -u origin main</pre>
+
+            <h4>2. Configure Render.com</h4>
+            <ol>
+                <li>Go to <a href="https://render.com">render.com</a> and sign in</li>
+                <li>Click "New +" → "Web Service"</li>
+                <li>Connect your GitHub repository</li>
+                <li>Configure settings:
+                    <ul>
+                        <li><strong>Name:</strong> image-assembly-api</li>
+                        <li><strong>Environment:</strong> Docker</li>
+                        <li><strong>Instance Type:</strong> Standard (2GB RAM minimum)</li>
+                        <li><strong>Docker Command:</strong> <code>npm start</code></li>
+                    </ul>
+                </li>
+                <li>Add environment variables:
+                    <pre>NODE_ENV=production
+AWS_ACCESS_KEY_ID=your_key
+AWS_SECRET_ACCESS_KEY=your_secret
+AWS_REGION=us-east-1
+S3_BUCKET_NAME=your-bucket</pre>
+                </li>
+            </ol>
+
+            <h4>3. Docker Configuration</h4>
+            <p>The included Dockerfile installs all dependencies including FFmpeg and ImageMagick:</p>
+            <pre>FROM node:18-alpine
+RUN apk add --no-cache ffmpeg imagemagick
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --production
+COPY . .
+EXPOSE 3000
+CMD ["npm", "start"]</pre>
+
+            <div class="warning">
+                <strong>⚠️ Important:</strong> Ensure your Render instance has at least 2GB RAM for processing large comic images
+            </div>
+        </div>
+
+        <!-- Error Handling Section -->
+        <div class="section">
+            <h2>❗ Error Handling</h2>
+            
+            <h3>Common Error Responses</h3>
+            
+            <h4>400 - Bad Request</h4>
+            <pre>{
+  "success": false,
+  "error": "No images provided. Please upload at least one image."
+}</pre>
+
+            <h4>413 - Payload Too Large</h4>
+            <pre>{
+  "success": false,
+  "error": "File too large. Maximum file size is 50MB per image."
+}</pre>
+
+            <h4>500 - Server Error</h4>
+            <pre>{
+  "success": false,
+  "error": "An unexpected error occurred",
+  "stack": "..." // Only in development mode
+}</pre>
+
+            <h3>Troubleshooting</h3>
+            <ul>
+                <li><strong>Timeout errors:</strong> Increase client timeout to 10 minutes for large files</li>
+                <li><strong>Memory errors:</strong> Ensure server has at least 2GB RAM</li>
+                <li><strong>Quality issues:</strong> Always use "ultra" preset for comic books</li>
+                <li><strong>Color banding:</strong> Ensure source images are high quality (300+ DPI)</li>
+            </ul>
+        </div>
+
+        <!-- Performance Tips Section -->
+        <div class="section">
+            <h2>⚡ Performance Optimization</h2>
+            
+            <h3>Best Practices</h3>
+            <ul>
+                <li><strong>Image Preparation:</strong> Resize images to target dimensions before upload</li>
+                <li><strong>Batch Processing:</strong> Use /both endpoint to generate GIF and PDF simultaneously</li>
+                <li><strong>Compression:</strong> Pre-compress images with lossless compression</li>
+                <li><strong>CDN Usage:</strong> Serve output files through a CDN for faster delivery</li>
+            </ul>
+
+            <h3>Recommended Image Specifications</h3>
+            <ul>
+                <li><strong>Format:</strong> JPEG or PNG</li>
+                <li><strong>Resolution:</strong> 800x1200px for web, 1600x2400px for print</li>
+                <li><strong>Color Space:</strong> sRGB</li>
+                <li><strong>DPI:</strong> 72 for web, 300 for print</li>
+            </ul>
+
+            <h3>Processing Times (10 images)</h3>
+            <table class="params-table">
+                <tr>
+                    <th>Quality</th>
+                    <th>GIF Generation</th>
+                    <th>PDF Generation</th>
+                </tr>
+                <tr>
+                    <td>Low</td>
+                    <td>~5 seconds</td>
+                    <td>~2 seconds</td>
+                </tr>
+                <tr>
+                    <td>Medium</td>
+                    <td>~10 seconds</td>
+                    <td>~3 seconds</td>
+                </tr>
+                <tr>
+                    <td>High</td>
+                    <td>~20 seconds</td>
+                    <td>~4 seconds</td>
+                </tr>
+                <tr>
+                    <td>Ultra</td>
+                    <td>~30-45 seconds</td>
+                    <td>~5 seconds</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Support Section -->
+        <div class="section">
+            <h2>🤝 Support</h2>
+            
+            <h3>Contact</h3>
+            <ul>
+                <li><strong>Email:</strong> support@imageassembly.api</li>
+                <li><strong>GitHub:</strong> <a href="https://github.com/yourusername/image-assembly-api">github.com/yourusername/image-assembly-api</a></li>
+                <li><strong>Documentation:</strong> <a href="/api/docs">/api/docs</a></li>
+            </ul>
+
+            <h3>License</h3>
+            <p>MIT License - Free for commercial and personal use</p>
+
+            <h3>Credits</h3>
+            <p>Built with ❤️ for comic creators and digital artists</p>
+            <p>Powered by FFmpeg, ImageMagick, Sharp, and pdf-lib</p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
