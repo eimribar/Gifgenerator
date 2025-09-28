@@ -72,7 +72,10 @@ class StorageService {
       const filepath = path.join(formatDir, filename);
       await fs.writeFile(filepath, buffer);
       
-      const baseUrl = process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`;
+      // Use RENDER_EXTERNAL_URL if available (Render.com provides this)
+      const baseUrl = process.env.RENDER_EXTERNAL_URL || 
+                      process.env.BASE_URL || 
+                      `http://localhost:${process.env.PORT || 3000}`;
       return `${baseUrl}/outputs/${format}/${filename}`;
     } catch (error) {
       console.error('Local storage error:', error);
