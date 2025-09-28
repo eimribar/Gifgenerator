@@ -201,7 +201,7 @@ class GifService {
     
     const pattern = path.join(tempDir, 'frame_%04d.png');
     const outputPath = path.join(tempDir, 'output.gif');
-    const fps = Math.round(1000 / delay);
+    const fps = Math.max(1, Math.round(1000 / delay)); // Ensure minimum 1 fps
     
     if (preset.method === 'maximum') {
       // Ultra quality: Two-pass method for optimal palette
